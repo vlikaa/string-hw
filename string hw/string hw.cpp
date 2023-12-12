@@ -4,18 +4,15 @@
 
 using namespace std;
 
-
-
 int main()
 {
-    
-    String a(3);
+    String b;
+    String a(4);
+    String C("priv");
 
-    char b[10];
-
-    cin >> b;
-
-    a.setStr("asd");
-    a.getStr();
+    C.Append(" df");
+    //C.Reverse();
+    cout << C.getStr() << endl;
+    cout << C.EndsWith(" d") << endl;
 }
 
