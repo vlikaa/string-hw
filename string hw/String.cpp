@@ -77,6 +77,15 @@ void String::Append(const char* string) {
 	size += strlen(string);
 }
 
+void String::Append(const String& string) {
+	if (size + string.size + 1 >= capacity)
+		relocate();
+	for (int i = size, j = 0; j < string.size + 1; i++, j++) {
+		this->string[i] = string.string[j];
+	}
+	size += string.size;
+}
+
 int String::Find(const char symbol) {
 	for (int i = 0; i < size; i++) {
 		if (string[i] == symbol)
@@ -107,14 +116,46 @@ bool String::IsEmpty() {
 
 void String::LeftTrim() {
 
+	if (string[0] != ' ')
+		return;
+
+	char* newStr = new char[capacity];
+	int startIndex{};
+	for (int i = 0; i < size; i++) {
+		if (string[i] != ' ')
+			break;
+		size--;
+		startIndex++;
+	}
+	for (int i = 0, j = startIndex; i < size + 1; i++, j++) {
+		newStr[i] = string[j];
+	}
+	delete[] string;
+	string = newStr;
+
 }
 
 void String::RightTrim() {
+	if (string[size - 1] != ' ')
+		return;
 
+	char* newStr = new char[capacity];
+	for (int i = size - 1; i > 0; i--) {
+		if (string[i] != ' ')
+			break;
+		size--;
+	}
+	for (int i = 0; i < size; i++) {
+		newStr[i] = string[i];
+	}
+	newStr[size] = '\0';
+	delete[] string;
+	string = newStr;
 }
 
 void String::Trim() {
-
+	LeftTrim();
+	RightTrim();
 }
 
 void String::ToUpper() {
@@ -143,12 +184,15 @@ bool String::StartsWith(const char* string) {
 	return true;
 }
 
-//bool String::StartsWith(const String& string) {
-//
-//}
+bool String::StartsWith(const String& string) {
+	for (int i = 0; i < string.size; i++) {
+		if (this->string[i] != string.string[i])
+			return false;
+	}
+	return true;
+}
 
 bool String::EndsWith(const char* string) {
-	int j = strlen(string);
 	for (int i = size - 1, j = 0; j < strlen(string); i--, j++) {
 		if (this->string[i] != string[j])
 			return false;
@@ -156,7 +200,11 @@ bool String::EndsWith(const char* string) {
 	return true;
 }
 
-//bool EndsWith(const String& string) {
-//
-//}
+bool String::EndsWith(const String& string) {
+	for (int i = size - 1, j = 0; j < string.size; i--, j++) {
+		if (this->string[i] != string.string[j])
+			return false;
+	}
+	return true;
+}
 

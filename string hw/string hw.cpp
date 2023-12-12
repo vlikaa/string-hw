@@ -8,11 +8,24 @@ int main()
 {
     String b;
     String a(4);
-    String C("priv");
+    String C("  priv    ");
 
-    C.Append(" df");
-    //C.Reverse();
     cout << C.getStr() << endl;
-    cout << C.EndsWith(" d") << endl;
+    //C.LeftTrim();
+    //cout << C.getStr() << endl;
+    //C.RightTrim();
+    //cout << C.getStr() << "asd" << endl;
+    C.Trim();
+    cout << C.getStr() << "asd" << endl;
+    C.Append(" asdasd");
+    cout << C.getStr() << endl;
+    C.Append(" asdasd");
+    cout << C.getStr() << endl;
+
+    String d("dsa");
+   
+    cout << C.EndsWith(d) << endl;
+
+
 }
 
