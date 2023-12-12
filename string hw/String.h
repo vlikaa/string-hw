@@ -8,7 +8,7 @@ public:
 
 	~String();
 	String();
-	String(const int length);
+	String(const int capacity);
 	String(const char* string);
 
 	void setStr(const char* string);
